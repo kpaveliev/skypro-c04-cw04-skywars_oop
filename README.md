@@ -1,3 +1,2 @@
-# coursework_5
-
-# Для выполнения курсовой работы также можно воспользоваться папкой help files
+# SkyPro.Python course
+## CW04. SkyWars - browser fight simulator (OOP, dataclasses, Flask)
