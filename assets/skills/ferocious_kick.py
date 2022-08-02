@@ -1,13 +1,13 @@
-from assets.heroes.hero import Hero
-from assets.skills.skill import Skill
+from assets.skills import BaseSkill
 
 
-class FerociousKick(Skill):
+class FerociousKick(BaseSkill):
     """Special skill"""
     name: str = 'Свирепый пинок'
-    damage: float = 12
-    stamina_required: float = 6
+    damage: float = 12.0
+    stamina_required: float = 6.0
 
-    def skill_effect(self, user: Hero, target: Hero):
-        target.max_health -= self.damage
-        return f'{user.name} uses {self.name} and inflict {self.damage} to {target.name}'
+    def skill_effect(self):
+        self.target.health -= self.damage
+        self.user.stamina -= self.stamina_required
+        return f'{self.user.name} uses {self.name} and inflict {self.damage} to {self.target.name}'

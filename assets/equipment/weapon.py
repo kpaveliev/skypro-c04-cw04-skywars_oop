@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from random import uniform
 
+import marshmallow
 import marshmallow_dataclass
 
 
@@ -10,7 +11,10 @@ class Weapon:
     name: str
     min_damage: float
     max_damage: float
-    stamina_per_hit: float
+    stamina_per_attack: float
+
+    class Meta:
+        unknown = marshmallow.EXCLUDE
 
     def calculate_damage(self):
         """Calculate inflicted damage"""

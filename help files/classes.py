@@ -5,7 +5,6 @@ class UnitClass:
     max_health: float
     max_stamina: float
     attack: float
-    stamina: float
     armor: float
     skill: Skill
 
