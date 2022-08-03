@@ -3,5 +3,7 @@ from .player import Player
 from .computer import Computer
 
 __all__ = [
-    "BaseUnit"
+    "BaseUnit",
+    "Player",
+    "Computer"
 ]
