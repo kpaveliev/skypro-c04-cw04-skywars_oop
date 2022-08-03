@@ -17,7 +17,7 @@ class Weapon:
         unknown = marshmallow.EXCLUDE
 
     def calculate_damage(self):
-        """Calculate inflicted damage"""
+        """Calculate inflicted damage based on max and min values"""
         return uniform(self.min_damage, self.max_damage)
 
 

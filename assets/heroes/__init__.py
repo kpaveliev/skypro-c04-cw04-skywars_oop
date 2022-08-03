@@ -1,9 +1,9 @@
-from base_hero import BaseHero
+from unit_class import UnitClass
 from thief import Thief
 from warrior import Warrior
 
 __all__ = [
-    "BaseHero",
+    "UnitClass",
     "Thief",
     "Warrior"
 ]

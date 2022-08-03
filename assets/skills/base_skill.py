@@ -12,7 +12,7 @@ class BaseSkill(ABC):
     target: BaseUnit = None
 
     @abstractmethod
-    def skill_effect(self):
+    def _skill_effect(self):
         pass
 
     def use(self, user: BaseUnit, target: BaseUnit):
@@ -21,4 +21,4 @@ class BaseSkill(ABC):
         self.target = target
         if self.user.stamina < self.stamina_required:
             return f"{user.name} tried to use {self.name}, but {user.stamina} wasn't enough"
-        return self.skill_effect()
+        return self._skill_effect()

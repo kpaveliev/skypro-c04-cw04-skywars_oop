@@ -8,7 +8,7 @@ from config import BaseConfig
 
 
 class Equipment:
-    """Interface to communicate with Hero"""
+    """Interface to communicate with the Unit"""
 
     def __init__(self, filename: str):
         self.filename = filename

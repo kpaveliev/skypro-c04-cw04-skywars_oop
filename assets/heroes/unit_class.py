@@ -5,12 +5,12 @@ from assets.skills import BaseSkill
 
 
 @dataclass
-class BaseHero(ABC):
-    """Base class for heroes"""
+class UnitClass(ABC):
+    """Base class for unit classes"""
     name: str
     max_health: float
     max_stamina: float
-    attack_mod: float
-    stamina_mod: float
+    attack_modifier: float
+    stamina_modifier: float
     armor_mod: float
     skill: BaseSkill
