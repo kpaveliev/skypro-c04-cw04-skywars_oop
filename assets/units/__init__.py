@@ -1,9 +1,9 @@
 from .base_unit import BaseUnit
 from .player import Player
-from .computer import Computer
+from .enemy import Enemy
 
 __all__ = [
     "BaseUnit",
     "Player",
-    "Computer"
+    "Enemy"
 ]

@@ -9,6 +9,6 @@ class FerociousKick(BaseSkill):
 
     def _skill_effect(self):
         """Decrease target health and decrease user stamina"""
-        self.target.health -= self.damage
-        self.user.stamina -= self.stamina_required
+        self.target.health_points -= self.damage
+        self.user.stamina_points -= self.stamina_required
         return f'{self.user.name} uses {self.name} and inflict {self.damage} to {self.target.name}'

@@ -4,7 +4,6 @@ from typing import List
 from assets.equipment.armor import ArmorSchema, Armor
 from assets.equipment.equipment_data import EquipmentData
 from assets.equipment.weapon import WeaponSchema, Weapon
-from config import BaseConfig
 
 
 class Equipment:
@@ -42,12 +41,3 @@ class Equipment:
     def get_armor_names(self) -> List[Armor]:
         """Get list of all available armor (names)"""
         return [armor.name for armor in self.equipment.armor]
-
-
-if __name__ == '__main__':
-    equipment = Equipment(BaseConfig.EQUIPMENT_PATH)
-    print(equipment.equipment)
-    print(equipment.get_weapon('топорик'))
-    print(equipment.get_armor('кожаная броня'))
-    print(equipment.get_weapon_names())
-    print(equipment.get_armor_names())

@@ -11,7 +11,7 @@ class Weapon:
     name: str
     min_damage: float
     max_damage: float
-    stamina_per_attack: float
+    stamina_per_hit: float
 
     class Meta:
         unknown = marshmallow.EXCLUDE

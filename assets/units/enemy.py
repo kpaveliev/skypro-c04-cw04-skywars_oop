@@ -3,7 +3,7 @@ from random import randint
 from assets.units import BaseUnit
 
 
-class Computer(BaseUnit):
+class Enemy(BaseUnit):
 
     def attack(self, target: BaseUnit) -> str:
         """Attack logic for Computer

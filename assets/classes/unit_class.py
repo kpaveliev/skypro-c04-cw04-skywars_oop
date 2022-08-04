@@ -12,5 +12,5 @@ class UnitClass(ABC):
     max_stamina: float
     attack_modifier: float
     stamina_modifier: float
-    armor_mod: float
+    armor_modifier: float
     skill: BaseSkill
