@@ -10,4 +10,4 @@ class PowerfulThrust(BaseSkill):
     def _skill_effect(self) -> str:
         self.target.health_points -= self.damage
         self.user.stamina_points -= self.stamina_required
-        return f'{self.user.name} uses {self.name} and inflict {self.damage} to {self.target.name}'
+        return f'{self.user.name} использует {self.user.unit_class.skill.name} и наносит {self.damage} урона сопернику.'

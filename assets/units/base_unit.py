@@ -27,7 +27,7 @@ class BaseUnit(ABC):
     #     self.armor = armor
     #     return f"{self.name} is equipped with the armor - {self.armor.name}"
 
-    def _calculate_attack(self, target: BaseUnit) -> float:
+    def _calculate_damage(self, target: BaseUnit) -> float:
         """Calculate total attack points - weapon + attack_modifier"""
 
         # Calculate damage and defence
@@ -37,25 +37,32 @@ class BaseUnit(ABC):
         # Change states
         self.stamina_points -= self.weapon.stamina_per_hit
         target.stamina_points -= self.armor.stamina_per_turn
-        target.health_points -= damage - defence
+        target.health_points -= round(damage, 1) - round(defence, 1)
 
-        return damage
+        if target.health_points < 0:
+            target.health_points = 0
+
+        return round(damage, 1)
 
     def attack(self, target: BaseUnit) -> str:
         """Attack logic"""
 
         if self.stamina_points >= self.weapon.stamina_per_hit:
-            damage = self._calculate_attack(target)
+            damage = self._calculate_damage(target)
             if damage > 0:
-                return f"{self.name} inflict {damage} damage to {target.name} using {self.weapon.name}."
-            return f"{self.name} tried to attack {target.name}, but he wasn't able to penetrate {target.name} armor."
+                return (f"{self.name}, используя {self.weapon.name}, "
+                        f"пробивает {target.armor.name} соперника и наносит {damage} урона.")
+            return (f"{self.name}, используя {self.weapon.name}, "
+                    f"наносит удар, но {self.armor.name} соперника его останавливает.")
 
-        return f"{self.name} tried to use {self.weapon.name}, but he didn't have enough stamina."
+        return (f"{self.name} попытался использовать {self.weapon.name}, "
+                f"но у него не хватило выносливости.")
 
     def use_skill(self, target: BaseUnit):
         """Use special skill"""
         if self.skill_used:
-            return f"{self.name} tried to use {self.unit_class.skill.name}, but it's already used."
+            return (f"{self.name} попытался использовать {self.unit_class.skill.name}, "
+                    f"но у него не хватило выносливости.")
         self.skill_used = True
         return self.unit_class.skill.use(user=self, target=target)
 

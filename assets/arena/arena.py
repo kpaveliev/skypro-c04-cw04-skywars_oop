@@ -15,7 +15,7 @@ class Arena(metaclass=BaseSingleton):
         self.enemy = enemy
         self.game_on = True
 
-    def next_round(self) -> str:
+    def next_turn(self) -> str:
         """Check health, regenerate stamina and enemy attack"""
         if self._check_health():
             self._regenerate_stamina()
@@ -25,8 +25,8 @@ class Arena(metaclass=BaseSingleton):
     def _regenerate_stamina(self) -> None:
         """Regenerate players stamina"""
         # Regenerate stamina
-        self.player.stamina_points += self.STAMINA_RECOVERY_PER_TURN * self.player.unit_class.stamina_modifier
-        self.enemy.stamina_points += self.STAMINA_RECOVERY_PER_TURN * self.enemy.unit_class.stamina_modifier
+        self.player.stamina_points += round(self.STAMINA_RECOVERY_PER_TURN * self.player.unit_class.stamina_modifier, 1)
+        self.enemy.stamina_points += round(self.STAMINA_RECOVERY_PER_TURN * self.enemy.unit_class.stamina_modifier, 1)
 
         # Check it isn't greate than maximum
         if self.player.stamina_points > self.player.unit_class.max_stamina:
@@ -39,32 +39,30 @@ class Arena(metaclass=BaseSingleton):
         if self.player.health_points > 0 and self.enemy.health_points > 0:
             return True
         if self.player.health_points <= 0 <= self.enemy.health_points:
-            self.game_result = f'{self.player.name} loses to {self.enemy.name}'
+            self.battle_result = f'{self.player.name} победил {self.enemy.name}'
         if self.player.health_points >= 0 >= self.enemy.health_points:
-            self.game_result = f'{self.player.name} wins {self.enemy.name}'
+            self.battle_result = f'{self.player.name} wins {self.enemy.name}'
         if self.player.health_points <= 0 and self.enemy.health_points <= 0:
-            self.game_result = f'{self.player.name} and {self.enemy.name} draw!'
+            self.battle_result = f'{self.player.name} and {self.enemy.name} draw!'
         return self._finish_game()
 
     def _finish_game(self):
         """Return game result"""
         self._instances = {}
         self.game_on = False
-        return self.game_result
+        return self.battle_result
 
     def player_attack(self):
-        """Call player attack and next round methods"""
+        """Call player attack and enemy attack methods"""
         player_result = self.player.attack(target=self.enemy)
-        enemy_result = self.next_round()
-        return player_result + enemy_result
+        return self.enemy_attack(player_result)
 
     def player_use_skill(self):
-        """Call player use skill and next round methods"""
+        """Call player use skill and enemy attack methods"""
         player_result = self.player.use_skill(target=self.enemy)
-        enemy_result = self.next_round()
-        return player_result + enemy_result
+        return self.enemy_attack(player_result)
 
-
-
-
-
+    def enemy_attack(self, player_result):
+        """Call enemy attack method"""
+        enemy_result = self.next_turn()
+        return player_result + " " + enemy_result

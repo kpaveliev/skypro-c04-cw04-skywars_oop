@@ -23,5 +23,6 @@ class BaseSkill(ABC):
         self.user = user
         self.target = target
         if self.user.stamina_points < self.stamina_required:
-            return f"{user.name} tried to use {self.name}, but {user.stamina_points} wasn't enough"
+            return (f"{self.user.name} попытался использовать {self.user.unit_class.skill.name}, "
+                    f"но у него не хватило выносливости.")
         return self._skill_effect()
