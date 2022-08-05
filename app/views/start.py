@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, current_app, redirect
+from flask import Blueprint, request, render_template, redirect, url_for
 
 # from assets.unit_classes import unit_classes
 from assets.units import Player, Enemy
@@ -40,7 +40,7 @@ def choose_hero():
         player_unit = Player(name=user_name, unit_class=unit_class, weapon=weapon, armor=armor)
         heroes['player'] = player_unit
 
-        return redirect('/choose-enemy/')
+        return redirect(url_for('Start.choose_enemy'))
 
 
 @start_bp.route('/choose-enemy/', methods=['GET', 'POST'])
@@ -68,4 +68,4 @@ def choose_enemy():
         enemy_unit = Enemy(name=user_name, unit_class=unit_class, weapon=weapon, armor=armor)
         heroes['enemy'] = enemy_unit
 
-        return redirect('/fight/')
+        return redirect(url_for('Fight.fight'))

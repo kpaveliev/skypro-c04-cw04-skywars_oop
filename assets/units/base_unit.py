@@ -50,7 +50,7 @@ class BaseUnit(ABC):
                 return (f"{self.name}, используя {self.weapon.name}, "
                         f"пробивает {target.armor.name} соперника и наносит {damage_inflicted} урона.")
             return (f"{self.name}, используя {self.weapon.name}, "
-                    f"наносит удар, но {self.armor.name} соперника его останавливает.")
+                    f"наносит удар, но {target.armor.name} соперника его останавливает.")
 
         return (f"{self.name} попытался использовать {self.weapon.name}, "
                 f"но у него не хватило выносливости.")

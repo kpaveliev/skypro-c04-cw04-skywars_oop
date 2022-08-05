@@ -9,7 +9,7 @@ fight_bp = Blueprint('Fight', __name__, url_prefix='/fight')
 
 
 @fight_bp.route('/')
-def main():
+def fight():
     """Display fight page"""
     arena.STAMINA_RECOVERY_PER_TURN = current_app.config['STAMINA_RECOVERY_PER_TURN']
     arena.start_game(player=heroes['player'],
