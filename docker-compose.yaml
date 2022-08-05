@@ -2,9 +2,9 @@ version: '3.9'
 
 services:
 
-  app:
-    build: .
-    command: gunicorn --bind 0.0.0.0:5000 run:app
+  skywars:
+    image: kpaveliev/skypro-cw05-skywars:latest
+    command: gunicorn --bind 0.0.0.0:8000 run:app
     restart: always
 
   nginx:
