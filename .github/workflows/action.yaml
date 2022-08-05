@@ -34,5 +34,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd skywars_ci
-            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose pull
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
