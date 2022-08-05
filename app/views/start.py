@@ -40,7 +40,7 @@ def choose_hero():
         player_unit = Player(name=user_name, unit_class=unit_class, weapon=weapon, armor=armor)
         heroes['player'] = player_unit
 
-        return redirect(url_for('Start.choose_enemy', _redirect=True))
+        return redirect(url_for('Start.choose_enemy'))
 
 
 @start_bp.route('/choose-enemy/', methods=['GET', 'POST'])
