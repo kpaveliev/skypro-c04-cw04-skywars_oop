@@ -49,7 +49,7 @@ def choose_enemy():
 
     if request.method == 'GET':
         result = {
-            "header": 'Выбор героя для врага (компьютера)',
+            "header": 'Выбор героя для врага',
             "classes": unit_classes,
             "weapons": equipment.get_weapon_names(),
             "armors": equipment.get_armor_names()
