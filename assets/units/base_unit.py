@@ -11,47 +11,44 @@ class BaseUnit(ABC):
     def __init__(self, name: str, unit_class: UnitClass, weapon: Weapon, armor: Armor):
         self.name = name
         self.unit_class = unit_class
-        self.health_points: float = unit_class.max_health
-        self.stamina_points: float = unit_class.max_stamina
+        self.health_points_: float = unit_class.max_health
+        self.stamina_points_: float = unit_class.max_stamina
         self.weapon = weapon
         self.armor = armor
         self.skill_used: bool = False
+        
+    @property
+    def health_points(self):
+        if self.health_points_ < 0:
+            return 0
+        return round(self.health_points_, 1)
 
-    # def equip_weapon(self, weapon: Weapon) -> str:
-    #     """Equip unit with the Weapon passed"""
-    #     self.weapon = weapon
-    #     return f"{self.name} is equipped with the weapon - {self.weapon.name}"
-    #
-    # def equip_armor(self, armor: Armor) -> str:
-    #     """Equip unit with the Armor passed"""
-    #     self.armor = armor
-    #     return f"{self.name} is equipped with the armor - {self.armor.name}"
-
-    def _calculate_damage(self, target: BaseUnit) -> float:
-        """Calculate total attack points - weapon + attack_modifier"""
-
-        # Calculate damage and defence
-        damage = self.weapon.calculate_damage() * self.unit_class.attack_modifier
-        defence = self.armor.defence if self.stamina_points >= self.armor.stamina_per_turn else 0
-
-        # Change states
-        self.stamina_points -= self.weapon.stamina_per_hit
-        target.stamina_points -= self.armor.stamina_per_turn
-        target.health_points -= round(damage, 1) - round(defence, 1)
-
-        if target.health_points < 0:
-            target.health_points = 0
-
-        return round(damage, 1)
+    @property
+    def stamina_points(self):
+        return round(self.stamina_points_, 1)
 
     def attack(self, target: BaseUnit) -> str:
         """Attack logic"""
+        if self.stamina_points_ >= self.weapon.stamina_per_hit:
 
-        if self.stamina_points >= self.weapon.stamina_per_hit:
-            damage = self._calculate_damage(target)
-            if damage > 0:
+            # Calculate and inflict damage on target
+            damage_inflicted = self._calculate_damage(target)
+            target._get_damage(damage_inflicted)
+
+            # Update stamina points
+            self.stamina_points_ -= self.weapon.stamina_per_hit
+            target.stamina_points_ -= target.armor.stamina_per_turn
+
+            # Ensure target stamina points greater than 0
+            if target.stamina_points_ < 0:
+                target.stamina_points_ = 0
+
+            print(f'{self.name} потрачено выносливости: {self.weapon.stamina_per_hit}')
+            print(f'{target.name} потрачено выносливости: {target.armor.stamina_per_turn}')
+
+            if damage_inflicted > 0:
                 return (f"{self.name}, используя {self.weapon.name}, "
-                        f"пробивает {target.armor.name} соперника и наносит {damage} урона.")
+                        f"пробивает {target.armor.name} соперника и наносит {damage_inflicted} урона.")
             return (f"{self.name}, используя {self.weapon.name}, "
                     f"наносит удар, но {self.armor.name} соперника его останавливает.")
 
@@ -66,7 +63,31 @@ class BaseUnit(ABC):
         self.skill_used = True
         return self.unit_class.skill.use(user=self, target=target)
 
-    # def get_damage(self, damage_inflicted: float):
-    #     """Calculate damage"""
-    #     self.health -= damage_inflicted - self._calculate_defence()
-    #     return
+    def _calculate_damage(self, target: BaseUnit) -> float:
+        """Calculate damage inflicted on target"""
+        damage = self.weapon.calculate_damage() * self.unit_class.attack_modifier
+        defence = target.armor.defence if target.stamina_points_ >= target.armor.stamina_per_turn else 0
+
+        if damage <= defence:
+            damage_inflicted = 0
+        else:
+            damage_inflicted = damage - defence
+
+        print(f'{self.name} урон от оружия: {damage}')
+        print(f'{target.name} защита: {defence}')
+        print(f'{target.name} получает урон: {damage_inflicted}')
+        return round(damage_inflicted, 1)
+
+    def _get_damage(self, damage_inflicted: float) -> None:
+        """Reduce health points for the amount of damage"""
+        self.health_points_ -= damage_inflicted
+
+    # def equip_weapon(self, weapon: Weapon) -> str:
+    #     """Equip unit with the Weapon passed"""
+    #     self.weapon = weapon
+    #     return f"{self.name} is equipped with the weapon - {self.weapon.name}"
+    #
+    # def equip_armor(self, armor: Armor) -> str:
+    #     """Equip unit with the Armor passed"""
+    #     self.armor = armor
+    #     return f"{self.name} is equipped with the armor - {self.armor.name}"

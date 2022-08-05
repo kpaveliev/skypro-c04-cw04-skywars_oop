@@ -24,7 +24,7 @@ def hit():
     if arena.game_on:
         result = arena.player_attack()
         return render_template('fight.html', heroes=heroes, result=result)
-    return render_template('fight.html', heroes=heroes)
+    return render_template('fight.html', heroes=heroes, battle_result=arena.battle_result)
 
 
 @fight_bp.route('/use-skill/')

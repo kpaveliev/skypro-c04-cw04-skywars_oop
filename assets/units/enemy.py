@@ -13,8 +13,8 @@ class Enemy(BaseUnit):
         """
 
         if not self.skill_used:
-            use_skill = randint(0, 1)
-            if use_skill:
+            use_skill = randint(0, 9)
+            if use_skill == 0:
                 return self.use_skill(target)
 
         return super().attack(target)

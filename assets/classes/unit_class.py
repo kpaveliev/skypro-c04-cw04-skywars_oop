@@ -6,7 +6,7 @@ from assets.skills import BaseSkill
 
 @dataclass
 class UnitClass(ABC):
-    """Base class for unit classes"""
+    """Dataclass for unit classes"""
     name: str
     max_health: float
     max_stamina: float

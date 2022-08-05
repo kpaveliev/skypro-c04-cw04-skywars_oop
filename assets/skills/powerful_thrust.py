@@ -8,6 +8,6 @@ class PowerfulThrust(BaseSkill):
     stamina_required: float = 5.0
 
     def _skill_effect(self) -> str:
-        self.target.health_points -= self.damage
-        self.user.stamina_points -= self.stamina_required
+        self.target.health_points_ -= self.damage
+        self.user.stamina_points_ -= self.stamina_required
         return f'{self.user.name} использует {self.user.unit_class.skill.name} и наносит {self.damage} урона сопернику.'
