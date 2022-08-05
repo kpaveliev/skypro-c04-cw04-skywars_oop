@@ -20,7 +20,7 @@ def fight():
 
 @fight_bp.route('/hit/')
 def hit():
-    """Player attack"""
+    """Player attacks"""
     if arena.game_on:
         result = arena.player_attack()
         return render_template('fight.html', heroes=heroes, result=result)
@@ -29,7 +29,7 @@ def hit():
 
 @fight_bp.route('/use-skill/')
 def use_skill():
-    """Display hero choosing page"""
+    """Player uses special skill"""
     if arena.game_on:
         result = arena.player_use_skill()
         return render_template('fight.html', heroes=heroes, result=result)
@@ -38,7 +38,7 @@ def use_skill():
 
 @fight_bp.route('/pass-turn/')
 def pass_turn():
-    """Display hero choosing page"""
+    """Player passes turn"""
     if arena.game_on:
         result = arena.next_turn()
         return render_template('fight.html', heroes=heroes, result=result)
@@ -47,5 +47,5 @@ def pass_turn():
 
 @fight_bp.route('/end-fight/')
 def stop_fight():
-    """Display hero choosing page"""
+    """Stop game and return to start page"""
     return render_template("index.html")

@@ -45,7 +45,7 @@ def choose_hero():
 
 @start_bp.route('/choose-enemy/', methods=['GET', 'POST'])
 def choose_enemy():
-    """Display computer unit configuration form"""
+    """Display enemy unit configuration form"""
 
     if request.method == 'GET':
         result = {
@@ -68,4 +68,4 @@ def choose_enemy():
         enemy_unit = Enemy(name=user_name, unit_class=unit_class, weapon=weapon, armor=armor)
         heroes['enemy'] = enemy_unit
 
-        return redirect(url_for('Fight.fight'))
+        return redirect(url_for('Fight.fight', _external=True))
