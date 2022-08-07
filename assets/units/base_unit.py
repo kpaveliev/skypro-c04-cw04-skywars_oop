@@ -43,9 +43,6 @@ class BaseUnit(ABC):
             if target.stamina_points_ < 0:
                 target.stamina_points_ = 0
 
-            print(f'{self.name} потрачено выносливости: {self.weapon.stamina_per_hit}')
-            print(f'{target.name} потрачено выносливости: {target.armor.stamina_per_turn}')
-
             if damage_inflicted > 0:
                 return (f"{self.name}, используя {self.weapon.name}, "
                         f"пробивает {target.armor.name} соперника и наносит {damage_inflicted} урона.")
@@ -73,21 +70,8 @@ class BaseUnit(ABC):
         else:
             damage_inflicted = damage - defence
 
-        print(f'{self.name} урон от оружия: {damage}')
-        print(f'{target.name} защита: {defence}')
-        print(f'{target.name} получает урон: {damage_inflicted}')
         return round(damage_inflicted, 1)
 
     def _get_damage(self, damage_inflicted: float) -> None:
         """Reduce health points for the amount of damage"""
         self.health_points_ -= damage_inflicted
-
-    # def equip_weapon(self, weapon: Weapon) -> str:
-    #     """Equip unit with the Weapon passed"""
-    #     self.weapon = weapon
-    #     return f"{self.name} is equipped with the weapon - {self.weapon.name}"
-    #
-    # def equip_armor(self, armor: Armor) -> str:
-    #     """Equip unit with the Armor passed"""
-    #     self.armor = armor
-    #     return f"{self.name} is equipped with the armor - {self.armor.name}"

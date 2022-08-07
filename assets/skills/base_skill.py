@@ -8,11 +8,11 @@ if TYPE_CHECKING:
 
 class BaseSkill(ABC):
     """Base class for special skills"""
-    name: str = None
+    name: str = ""
     damage: float = 0
     stamina_required: float = 0
-    user = None
-    target = None
+    user: BaseUnit
+    target: BaseUnit
 
     @abstractmethod
     def _skill_effect(self):

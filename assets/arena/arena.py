@@ -1,3 +1,5 @@
+from typing import Dict
+
 from assets.arena import BaseSingleton
 from assets.units import BaseUnit
 
@@ -5,10 +7,10 @@ from assets.units import BaseUnit
 class Arena(metaclass=BaseSingleton):
     """Class for Arena"""
     STAMINA_RECOVERY_PER_TURN: float = 1
-    player: BaseUnit = None
-    enemy: BaseUnit = None
     game_on: bool = False
-    battle_result: str = None
+    battle_result: str = ""
+    player: BaseUnit
+    enemy: BaseUnit
 
     def start_game(self, player: BaseUnit, enemy: BaseUnit) -> None:
         """Start game and assign player, enemy"""
@@ -49,13 +51,8 @@ class Arena(metaclass=BaseSingleton):
         if self.enemy.stamina_points_ > self.enemy.unit_class.max_stamina:
             self.enemy.stamina_points_ = self.enemy.unit_class.max_stamina
 
-        print(f'Игрок восстановлено выносливости: {player_stamina_recovery}')
-        print(f'Враг восстановлено выносливости: {player_stamina_recovery}')
-
-    def _check_health(self) -> bool | None:
+    def _check_health(self) -> bool:
         """Check if players have health left"""
-        print(f'Здоровье игрока: {self.player.health_points_}')
-        print(f'Здоровье врага: {self.enemy.health_points_}')
 
         if self.player.health_points_ > 0 and self.enemy.health_points_ > 0:
             return True
@@ -71,8 +68,10 @@ class Arena(metaclass=BaseSingleton):
 
         self._finish_game()
 
+        return False
+
     def _finish_game(self) -> None:
         """Finish game"""
-        self._instances = {}
+        self._instances: Dict = {}
         self.game_on = False
 

@@ -26,7 +26,8 @@ class Equipment:
         """Get Weapon by name"""
         for weapon in self.equipment.weapons:
             if weapon.name == weapon_name:
-                return weapon
+                weapon_to_equip = weapon
+        return weapon_to_equip
 
     def get_weapon_names(self) -> List[Weapon]:
         """Get list of all available weapons (names)"""
@@ -36,7 +37,8 @@ class Equipment:
         """Get Armor by name"""
         for armor in self.equipment.armor:
             if armor.name == armor_name:
-                return armor
+                armor_to_equip = armor
+        return armor_to_equip
 
     def get_armor_names(self) -> List[Armor]:
         """Get list of all available armor (names)"""
