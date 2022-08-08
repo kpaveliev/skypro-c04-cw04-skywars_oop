@@ -55,7 +55,7 @@ def choose_enemy():
             "armors": equipment.get_armor_names()
         }
 
-        return render_template('enemy_choosing.html', result=result, _external=True)
+        return render_template('hero_choosing.html', result=result)
 
     if request.method == 'POST':
         # Get form data
